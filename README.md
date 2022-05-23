@@ -1,24 +1,48 @@
 # README
+**furima-38024**へようこそ！  
+まだ始めたてなので見辛いかもしれませんがデータベースの設計図としてテーブル設計図を初めに載せます
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+---
+# テーブル設計図
 
-Things you may want to cover:
+usersテーブル
+|レコード|型|制約|外部キー制約|
+|---                |---    |---      |---        |
+|nickname           |string |NOT NULL |           |   ユーザー名
+|email              |string |NOT NULL |ユニーク制約 |   メールアドレス
+|encrypted_password |string |NOT NULL |           |   パスワード
 
-* Ruby version
+Association
 
-* System dependencies
+- has_many :items
+- has_many :buyers
 
-* Configuration
+---
+itemsテーブル
+|レコード|型|空で保存可能？|制約|
+|---              |---        |---      |---    |
+|item-name        |string     |NOT NULL |       |   商品名
+|item-explain     |string     |NOT NULL |       |   商品詳細
+|item-category    |string     |NOT NULL |       |   商品カテゴリー
+|item-condition   |string     |NOT NULL |       |   商品状態
+|item-price       |integer    |NOT NULL |       |   価格
+|user             |references |NOT NULL |外部キー|
 
-* Database creation
+Association
 
-* Database initialization
+- belongs_to :user
+- has_one :buyer
 
-* How to run the test suite
+---
+buyerテーブル
+|レコード|型|空で保存可能？|制約|
+|---              |---        |---      |---    |
+|address          |string     |NOT NULL |       |   配送先情報
+|delivery-charge  |integer    |NOT NULL |       |   配送料
+|item             |references |NOT NULL |外部キー|
+|user             |references |NOT NULL |外部キー|
 
-* Services (job queues, cache servers, search engines, etc.)
+Association
 
-* Deployment instructions
-
-* ...
+- belongs_to :item
+- belongs_to :user

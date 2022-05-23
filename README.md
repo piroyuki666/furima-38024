@@ -6,43 +6,68 @@
 # テーブル設計図
 
 usersテーブル
-|レコード|型|制約|外部キー制約|
-|---                |---    |---      |---        |
-|nickname           |string |NOT NULL |           |   ユーザー名
-|email              |string |NOT NULL |ユニーク制約 |   メールアドレス
-|encrypted_password |string |NOT NULL |           |   パスワード
+|カラム|型|オプション|
+|---                |---     |---        |
+|nickname           |string  |null:false |            ユーザー名
+|email              |string  |null:false,unique:true| メールアドレス
+|encrypted_password |string  |null:false |            パスワード
+|last-name          |string  |null:false |            ユーザー名
+|first-name         |string  |null:false |            ユーザー名
+|last-name-kana     |string  |null:false |            ユーザー名
+|first-name-kana    |string  |null:false |            ユーザー名
+|birth-date_id      |integer |null:false |            ユーザー名
 
 Association
 
 - has_many :items
-- has_many :buyers
+- has_many :orders
 
 ---
 itemsテーブル
-|レコード|型|空で保存可能？|制約|
-|---              |---        |---      |---    |
-|item-name        |text       |NOT NULL |       |   商品名
-|item-explain     |text       |NOT NULL |       |   商品詳細
-|item-category    |integer    |NOT NULL |       |   商品カテゴリー
-|item-condition   |integer    |NOT NULL |       |   商品状態
-|item-price       |integer    |NOT NULL |       |   価格
-|user             |references |NOT NULL |外部キー|
+|カラム|型|オプション|
+|---                         |---        |---        |
+|item-name                   |text       |null:false |                    商品名
+|item-info                   |text       |null:false |                    商品詳細
+|item-category_id            |integer    |null:false |                    商品カテゴリー
+|item-sales-status_id        |integer    |null:false |                    商品状態
+|item-price                  |integer    |null:false |                    価格
+|item-shipping-fee-status_id |integer    |null:false |                    配送料
+|item-prefecture_id          |integer    |null:false |                    発送元地域
+|item-scheduled-delivery_id  |integer    |null:false |                    配送日数
+|user                        |references |null:false, foreign_key: true |
 
 Association
 
 - belongs_to :user
-- has_one :buyer
+- has_one :order
 
 ---
-buyerテーブル
-|レコード|型|空で保存可能？|制約|
-|---              |---        |---      |---    |
-|address          |text       |NOT NULL |       |   配送先情報
-|delivery-charge  |integer    |NOT NULL |       |   配送料
-|item             |references |NOT NULL |外部キー|
-|user             |references |NOT NULL |外部キー|
+ordersテーブル
+|カラム|型|オプション|
+|---            |---        |---        |
+|card-number    |string     |null:false |                   カード番号
+|card-exp-month |integer    |null:false |                   有効期限の月
+|card-exp-year  |integer    |null:false |                   有効期限の年
+|card-cvc       |integer    |null:false |                   セキュリティコード
+|item           |references |null:false, foreign_key: true |
+|user           |references |null:false, foreign_key: true |
 
 Association
 
 - belongs_to :item
 - belongs_to :user
+- has_one :delivery-address
+
+delivery-addressテーブル
+|カラム|型|オプション|
+|---            |---     |---        |
+|postal-code    |integer |null:false | 郵便番号
+|prefecture_id  |integer |null:false | 都道府県
+|city           |string  |null:false | 市区町村
+|addresses      |string  |null:false | 番地
+|building       |string  |           | 建物名
+|phone-number   |string  |null:false | 番地
+
+Association
+
+- belongs_to :order

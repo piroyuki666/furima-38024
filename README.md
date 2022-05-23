@@ -7,15 +7,15 @@
 
 usersテーブル
 |カラム|型|オプション|
-|---                |---     |---        |
-|nickname           |string  |null:false |            ユーザー名
-|email              |string  |null:false,unique:true| メールアドレス
-|encrypted_password |string  |null:false |            パスワード
-|last-name          |string  |null:false |            ユーザー名
-|first-name         |string  |null:false |            ユーザー名
-|last-name-kana     |string  |null:false |            ユーザー名
-|first-name-kana    |string  |null:false |            ユーザー名
-|birth-date_id      |integer |null:false |            ユーザー名
+|---                |---    |---        |
+|nickname           |string |null:false |            ユーザー名
+|email              |string |null:false,unique:true| メールアドレス
+|encrypted_password |string |null:false |            パスワード
+|last_name          |string |null:false |            名前
+|first_name         |string |null:false |            苗字
+|last_name_kana     |string |null:false |            名前カナ
+|first_name_kana    |string |null:false |            苗字カナ
+|birth_date         |date   |null:false |            生年月日
 
 Association
 
@@ -26,14 +26,14 @@ Association
 itemsテーブル
 |カラム|型|オプション|
 |---                         |---        |---        |
-|item-name                   |text       |null:false |                    商品名
-|item-info                   |text       |null:false |                    商品詳細
-|item-category_id            |integer    |null:false |                    商品カテゴリー
-|item-sales-status_id        |integer    |null:false |                    商品状態
-|item-price                  |integer    |null:false |                    価格
-|item-shipping-fee-status_id |integer    |null:false |                    配送料
-|item-prefecture_id          |integer    |null:false |                    発送元地域
-|item-scheduled-delivery_id  |integer    |null:false |                    配送日数
+|item_name                   |string     |null:false |                    商品名
+|item_info                   |text       |null:false |                    商品詳細
+|item_category_id            |integer    |null:false |                    商品カテゴリー
+|item_sales-status_id        |integer    |null:false |                    商品状態
+|item_price                  |integer    |null:false |                    価格
+|item_shipping-fee-status_id |integer    |null:false |                    配送料
+|item_prefecture_id          |integer    |null:false |                    発送元地域
+|item_scheduled-delivery_id  |integer    |null:false |                    配送日数
 |user                        |references |null:false, foreign_key: true |
 
 Association
@@ -45,10 +45,6 @@ Association
 ordersテーブル
 |カラム|型|オプション|
 |---            |---        |---        |
-|card-number    |string     |null:false |                   カード番号
-|card-exp-month |integer    |null:false |                   有効期限の月
-|card-exp-year  |integer    |null:false |                   有効期限の年
-|card-cvc       |integer    |null:false |                   セキュリティコード
 |item           |references |null:false, foreign_key: true |
 |user           |references |null:false, foreign_key: true |
 
@@ -56,17 +52,18 @@ Association
 
 - belongs_to :item
 - belongs_to :user
-- has_one :delivery-address
+- has_one :delivery_address
 
-delivery-addressテーブル
+delivery_addressesテーブル
 |カラム|型|オプション|
-|---            |---     |---        |
-|postal-code    |integer |null:false | 郵便番号
-|prefecture_id  |integer |null:false | 都道府県
-|city           |string  |null:false | 市区町村
-|addresses      |string  |null:false | 番地
-|building       |string  |           | 建物名
-|phone-number   |string  |null:false | 番地
+|---                |---        |---        |
+|postal_code        |string     |null:false | 郵便番号
+|item_prefecture_id |integer    |null:false | 地域
+|city               |string     |null:false | 市区町村
+|addresses          |string     |null:false | 番地
+|building           |string     |           | 建物名
+|phone_number       |string     |null:false | 番地
+|order              |references |null:false, foreign_key: true |
 
 Association
 

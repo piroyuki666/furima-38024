@@ -21,10 +21,10 @@ Association
 itemsテーブル
 |レコード|型|空で保存可能？|制約|
 |---              |---        |---      |---    |
-|item-name        |string     |NOT NULL |       |   商品名
-|item-explain     |string     |NOT NULL |       |   商品詳細
-|item-category    |string     |NOT NULL |       |   商品カテゴリー
-|item-condition   |string     |NOT NULL |       |   商品状態
+|item-name        |text       |NOT NULL |       |   商品名
+|item-explain     |text       |NOT NULL |       |   商品詳細
+|item-category    |integer    |NOT NULL |       |   商品カテゴリー
+|item-condition   |integer    |NOT NULL |       |   商品状態
 |item-price       |integer    |NOT NULL |       |   価格
 |user             |references |NOT NULL |外部キー|
 
@@ -37,7 +37,7 @@ Association
 buyerテーブル
 |レコード|型|空で保存可能？|制約|
 |---              |---        |---      |---    |
-|address          |string     |NOT NULL |       |   配送先情報
+|address          |text       |NOT NULL |       |   配送先情報
 |delivery-charge  |integer    |NOT NULL |       |   配送料
 |item             |references |NOT NULL |外部キー|
 |user             |references |NOT NULL |外部キー|

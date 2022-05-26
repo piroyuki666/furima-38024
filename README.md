@@ -29,11 +29,11 @@ itemsテーブル
 |item_name                   |string     |null:false |                    商品名
 |item_info                   |text       |null:false |                    商品詳細
 |item_category_id            |integer    |null:false |                    商品カテゴリー
-|item_sales-status_id        |integer    |null:false |                    商品状態
+|item_sales_status_id        |integer    |null:false |                    商品状態
 |item_price                  |integer    |null:false |                    価格
-|item_shipping-fee-status_id |integer    |null:false |                    配送料
+|item_shipping_fee_status_id |integer    |null:false |                    配送料
 |item_prefecture_id          |integer    |null:false |                    発送元地域
-|item_scheduled-delivery_id  |integer    |null:false |                    配送日数
+|item_scheduled_delivery_id  |integer    |null:false |                    配送日数
 |user                        |references |null:false, foreign_key: true |
 
 Association

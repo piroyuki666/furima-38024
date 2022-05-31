@@ -50,9 +50,6 @@ class ItemPrefecture < ActiveHash::Base
     { id: 48, name: '沖縄' }
   ]
 
- 
-
   include ActiveHash::Associations
   has_many :items
-  
 end

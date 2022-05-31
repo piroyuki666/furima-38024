@@ -12,7 +12,7 @@ RSpec.describe Item, type: :model do
       end
     end
     context '商品出品できない' do
-      it 'item_nameが空' do
+      it 'item_nameが空の場合保存できない' do
         @item.item_name = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Item name can't be blank")
@@ -56,6 +56,17 @@ RSpec.describe Item, type: :model do
         @item.image = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Image can't be blank")
+      end
+
+      it 'item_nameが41文字以上の場合保存できない' do
+        @item.item_name = Faker::Lorem.characters(number: 41)
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Item name is too long (maximum is 40 characters)")
+      end
+      it 'item_infoが1001文字以上の場合保存できない' do
+        @item.item_info = Faker::Lorem.characters(number: 1001)
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Item info is too long (maximum is 1000 characters)")
       end
 
       it 'item_category_idが1の場合保存できない' do

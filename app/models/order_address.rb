@@ -6,7 +6,7 @@ class OrderAddress
     validates :user_id, :item_id, :city, :addresses
     validates :postal_code, format: { with: /\A\d{3}[-]\d{4}\z/, message: "is invalid. Include hyphen(-)" }
     validates :item_prefecture_id, numericality: {other_than: 0, message: "can't be blank"}
-    validates :phone_number, format: { with: /\d{10,11}/, message: "is invalid" }
+    validates :phone_number, numericality: {only_integer: true}, length: { in: 10..11 }
   end
 
   def save

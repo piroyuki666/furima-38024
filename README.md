@@ -52,9 +52,9 @@ Association
 
 - belongs_to :item
 - belongs_to :user
-- has_one :delivery_address
+- has_one :address
 
-delivery_addressesテーブル
+addressesテーブル
 |カラム|型|オプション|
 |---                |---        |---        |
 |postal_code        |string     |null:false | 郵便番号

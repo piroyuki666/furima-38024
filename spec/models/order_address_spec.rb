@@ -55,6 +55,16 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Item prefecture can't be blank")
       end
+      it 'phone_numberが空だと保存できないこと' do
+        @order_address.phone_number = ''
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Phone number can't be blank")
+      end
+      it 'phone_numberが整数以外では保存できないこと' do
+        @order_address.phone_number = 'abcdefghij'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include('Phone number is not a number')
+      end
       it 'phone_numberが半角整数値9桁以下では保存できないこと' do
         @order_address.phone_number = '123456789'
         @order_address.valid?
